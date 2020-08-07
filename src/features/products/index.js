@@ -1,6 +1,6 @@
 import {createAsyncThunk, createReducer} from "@reduxjs/toolkit";
 
-export const selector = state => state.products;
+export const selectProducts = state => state.products;
 
 export const fetchUserProducts = createAsyncThunk(
     'user/fetchProducts',

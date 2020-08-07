@@ -1,15 +1,20 @@
 //import "./Header.css";
-import React, { Component } from "react";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchUserProducts, selectProducts} from "../features/products";
 
 
-class Header extends Component {
-  render() {
+function Header() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchUserProducts());
+    }, [dispatch])
+    const {loading, entities} = useSelector(selectProducts);
     return (
-      <div className="container">
-          
-      </div>
+        <div className="container">
+            {JSON.stringify(entities, null, 2)}
+        </div>
     );
-  }
 }
 
 export default Header;
