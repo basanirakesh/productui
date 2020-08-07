@@ -6,14 +6,29 @@ class ProductCatalog extends Component {
 
     constructor(props) {
         super(props);
-        this.constants = new Constants();
+        //this.constants = new Constants();
         this.state = {
-            catalogProductList = []
+            productList: [],
+            catalogList: {}
         };
     }
 
     componentDidMount() {
-        this.setState({"catalogProductList":  this.sampleCatalog()});
+        this.processCatalogResponse(this.sampleCatalog());
+    }
+
+    processCatalogResponse = (catalogResponse) => {
+        catalogResponse.forEach((v, i, arr) => {
+            if (v.group in this.state.catalogList) {
+                let catalogList = this.state.catalogList;
+                catalogList[v.group].push(v);
+                this.setState({"catalogList": catalogList});
+            } else {
+                catalogList[v.group] = [];
+                catalogList[v.group].push(v);
+                this.setState({"catalogList": catalogList});
+            }
+        });
     }
 
     sampleCatalog = () => {
@@ -26,29 +41,32 @@ class ProductCatalog extends Component {
             {
               "name": "Bonus interest account",
               "group": "Saving",
-              "productId": "13"
+              "id": "13"
             },
             {
               "name": "Interest only",
               "group": "Mortgage",
-              "id": "12"
+              "id": "14"
             }
           ];
     }
 
   render() {
-      let productGroup = [];
-      productGroup = this.state.catalogProductList.map((entry, index) => {
-        productGroup.add(<li><ProductGroup entry={entry}/></li>);
-      }); 
+      let productGroupKV = [];
+      Object.keys(catalogList).forEach((v, i, arr) => {
+        productGroupKV.push({key: v, value: this.catalogList[v]});
+      });
+      productGroup = this.productGroupKV.map((entry, index) => {
+        return productGroup.push(<li><br />{entry.group}<br /><ProductGroup entry={entry}/></li>);
+      });
         return (
-        <div className="container">
-            <ul>
-                {productGroup}
-            </ul>
-        </div>
+            <div className="container">
+                <ul>
+                    {productGroup}
+                </ul>
+            </div>
         );
-  }
+      }
 }
 
 export default ProductCatalog;

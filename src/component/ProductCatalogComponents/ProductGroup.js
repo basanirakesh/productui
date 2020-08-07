@@ -10,18 +10,18 @@ class ProductGroup extends Component {
         }
     }
 
-    
+
   render() {
       let productList = [];
-      productList = this.state.catalogProductList.map((entry, index) => {
-        productList.add(<li>{entry.name}</li>);
+      this.state.catalogProductList.map((entry, index) => {
+        productList.push(<li>{entry.name}</li>);
         }); 
           return (
               <ul>
                   {productList}
               </ul>
           );
-      );
+     
   }
 }
 
