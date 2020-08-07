@@ -2,6 +2,17 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchUserProducts, selectProducts} from "../../features/products";
+import ProductGroup from "./ProductGroup";
+
+function groupByName(products) {
+    return products.reduce((groups, item) => {
+        if (!groups.hasOwnProperty(item.group)) {
+            groups[item.group] = [];
+        }
+        groups[item.group].push(item);
+        return groups;
+    }, {});
+}
 
 function ProductCatalog() {
 
@@ -10,18 +21,14 @@ function ProductCatalog() {
         dispatch(fetchUserProducts());
     }, [dispatch])
     const {loading, entities} = useSelector(selectProducts);
-    const groups = entities.reduce((groups, item) => {
-        if (!groups.hasOwnProperty(item.group)) {
-            groups[item.group] = [];
-        }
-        groups[item.group].push(item);
-        return groups;
-    }, {});
+    const groups = groupByName(entities);
     return (
         <div className="container">
             <h4>Products</h4>
             <ul>
-                {Object.keys(groups).map(groupName => <li>{groupName} | {groups[groupName].length}</li>)}
+                {Object.keys(groups).map(groupName =>
+                    <ProductGroup key={groupName} groupName={groupName} products={groups[groupName]}/>)
+                }
             </ul>
         </div>
     );

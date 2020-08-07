@@ -1,28 +1,16 @@
 //import "./ProductGroup.css";
-import React, { Component } from "react";
+import React from "react";
 
-class ProductGroup extends Component {
+function ProductGroup({groupName, products}) {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            catalogProductList: props.entry
-        }
-    }
-
-
-  render() {
-      let productList = [];
-      this.state.catalogProductList.map((entry, index) => {
-        productList.push(<li>{entry.name}</li>);
-        }); 
-          return (
-              <ul>
-                  {productList}
-              </ul>
-          );
-     
-  }
+    return (
+        <>
+            <li>{groupName} | {products.length}</li>
+            <ul>
+                {products.map(product => <li key={product.id}>{product.name}</li>)}
+            </ul>
+        </>
+    );
 }
 
 export default ProductGroup;
