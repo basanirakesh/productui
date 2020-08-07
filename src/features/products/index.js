@@ -5,7 +5,7 @@ export const selectProducts = state => state.products;
 export const fetchUserProducts = createAsyncThunk(
     'user/fetchProducts',
     async (userId, thunkAPI) => {
-        const response = await fetch('/v1/customers/1/products')
+        const response = await fetch(`/v1/customers/${userId}/products`)
         return response.json();
     }
 );

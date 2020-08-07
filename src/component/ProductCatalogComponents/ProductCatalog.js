@@ -18,16 +18,16 @@ function ProductCatalog() {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchUserProducts());
+        dispatch(fetchUserProducts(1));
     }, [dispatch])
-    const {loading, entities} = useSelector(selectProducts);
-    const groups = groupByName(entities);
+    const {entities} = useSelector(selectProducts);
+    const productGroups = groupByName(entities);
     return (
         <div className="container">
             <h4>Products</h4>
             <ul>
-                {Object.keys(groups).map(groupName =>
-                    <ProductGroup key={groupName} groupName={groupName} products={groups[groupName]}/>)
+                {Object.keys(productGroups).map(groupName =>
+                    <ProductGroup key={groupName} groupName={groupName} products={productGroups[groupName]}/>)
                 }
             </ul>
         </div>
