@@ -12,7 +12,7 @@ function Header() {
     const {loading, entities} = useSelector(selectProducts);
     return (
         <div className="container">
-            {JSON.stringify(entities, null, 2)}
+            {`items loaded: ${entities.length}`}
         </div>
     );
 }

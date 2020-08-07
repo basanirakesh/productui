@@ -5,7 +5,7 @@ export const selectProducts = state => state.products;
 export const fetchUserProducts = createAsyncThunk(
     'user/fetchProducts',
     async (userId, thunkAPI) => {
-        const response = await fetch('https://jsonplaceholder.typicode.com/todos/1')
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts')
         return response.json();
     }
 );
