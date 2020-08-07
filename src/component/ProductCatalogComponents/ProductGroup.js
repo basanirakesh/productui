@@ -5,7 +5,7 @@ function ProductGroup({groupName, products}) {
 
     return (
         <>
-            <li>{groupName} | {products.length}</li>
+            <li><b>{groupName} | {products.length}</b></li>
             <ul>
                 {products.map(product => <li key={product.id}>{product.name}</li>)}
             </ul>
